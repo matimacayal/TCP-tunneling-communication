@@ -63,3 +63,4 @@ void loop() {
   delayMicroseconds(bit_duration - 4*TCNT0);
 }
 
+

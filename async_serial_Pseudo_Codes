@@ -1,0 +1,90 @@
+/*                       TX                                */
+/* Pseudo-código para comunicación serial por el modulo rf */
+/*                                                         */
+#define dataPin
+
+int i;
+int data_size = 8; //bits of data in serial frame
+//  --                            --
+//  | Start |  Data (8 bit) | Stop | 
+//  --                            --
+int bit_t
+
+void setup() {
+  
+}
+
+void loop() {
+  /* Start */
+  dataPin = 1
+  
+  /* Data */
+  /* Recordar que en realidad un 1 y un 0 serán pequeños arreglos */
+  /* dado que no pueden haber muchos 1's seguidos. Quizás solo    */
+  /* algo como                                                    */
+  /*             1 = 01   y 0 = 00                                */
+  /* Donde rf_bit() transoforma                                   */
+  /* Existen otras formas del tipo "derivada" pero por mientras.  */
+  data_stream//: array of bits of data to send
+  // Aquí se utiliza tic-toc para mantener las ventanas
+  //de bits del tamaño bit_t. Tic-toc están posicionados
+  //así para que tomen el cuenta el tiempo del for.
+  tic;
+  dataPin = data_stream[0]
+  for (i = 1; i < data_size; i++) {
+    wait(bit_t - toc);
+    tic;
+    dataPin = data_strem[i] //rf_bit( data_stream[i] ), después
+    //tic;
+  }
+  
+  /* Stop */
+  dataPin = 0
+  wait(bit_t - toc);
+}
+
+————————————————————————————————————————————————————————————————————————— 
+
+/*                       RX                             */
+/* Pseudo-código para comunicación serial por módulo rf */
+/*                                                      */
+#define dataPin
+
+int i;
+int data_size = 8;
+int bit_t
+
+void setup() {
+  
+}
+
+void loop {
+  /* Start */
+  /* Hay que detectar el flanco de subi del canal (luego de la espera) */
+  /* Se lee el pin hasta detectar un 1. Tambien se podría utilizar     */
+  /* interrupciones en el pin */
+  while(!dataPin) {
+    //Espera flanco de subida... que indica el comienzo del frame
+    /* Originalmente es 1->0 por lo que uno sabe si el Tx esta trans- */
+    /* mitiendo o no. Ahora el estado defecto es 0, que no nos        */
+    /* info acerca de si el Tx esta transmitiendo o no.               */
+  }
+  wait(bit_t);
+
+  /* Data */
+  wait(bit_t/4); //para leer en la ~mitad de la señal de bit
+  data_stream//:array of bits of data received
+  tic;
+  data_stream[0] = dataPin
+  for(i = 0; i < data_size; i++) {
+    wait(bit_t - toc);
+    tic;
+    data_stream[i] = dataPin
+  }
+  
+  /* Stop */
+  /* Se podría detectar el level del pin, si es 1 hay error, pero    */
+  /* ¿que se hace? */
+}
+
+
